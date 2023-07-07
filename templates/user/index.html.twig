@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1>Gestion des parents</h1>
+    <div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-primary fa fa-eye"></a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-primary fa fa-edit"></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Auncun parent enregistré</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% if 'ROLE_ADMIN' in app.user.roles %}
+    <a href="{{ path('app_user_new') }}"  class="btn btn-success fa fa-add">&nbsp;Ajouter</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegistrationController!
+{% endblock %}
+
+{% block body %}
+	{% for child in tabChild %}
+	<table class="table table-bordered">
+		<tr>
+			<th colspan="2">{{ child.child.firstname }} {{ child.child.lastname }}</th>
+		</tr>
+		<tr>
+			<td>Prix</td>
+			<td>{{ child.price }} €</td>
+		</tr>
+		<tr>
+			<td>Jours réservé</td>
+			<td>
+				{% for day in child.day %}
+					{{ day }}<br/>
+				{% endfor %}
+			</td>
+		</tr>
+	</table>
+	{% endfor %}
+	<table class="table table-bordered">
+		<tr>
+			<th>Prix total de la commande</th>
+		</tr>
+		<tr>
+			<td>{{ totalCommand }} €</td>
+		</tr>
+	</table>
+	<a class="btn btn-success" href="{{ path('app_registration_save') }}">
+		Valider ma commande
+	</a>
+{% endblock %}

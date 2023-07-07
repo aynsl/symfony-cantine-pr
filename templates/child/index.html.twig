@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Child index{% endblock %}
+
+{% block body %}
+    <h1>Mes enfants</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Age</th>
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                <th>parent</th>
+                {% endif %}
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for child in children %}
+            <tr>
+                <td>{{ child.lastname }}</td>
+                <td>{{ child.firstname }}</td>
+                <td>{{ child.age }}</td>
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                <td>{{ child.user.firstname }} {{ child.user.lastname }}</td>
+                {% endif %}
+                <td>
+                    <a href="{{ path('app_child_show', {'id': child.id}) }}" class="btn btn-primary fa fa-eye"></a>
+                    <a href="{{ path('app_child_edit', {'id': child.id}) }}" class="btn btn-primary fa fa-edit"></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun enfant enregistré</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_child_new') }}" class="btn btn-success fa fa-add">Ajouter</a>
+{% endblock %}
